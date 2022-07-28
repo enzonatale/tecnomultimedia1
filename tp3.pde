@@ -1,10 +1,13 @@
 //https://youtu.be/m4rW0BOVet0
+
 PImage fondo;
 PImage pajaro;
 PImage obstaculo;
 PImage portada;
 PImage creditos;
 PImage gameover;
+
+float cuenta, tono;
 int estado = 1; 
 int pantalla =1;
 int puntos = 0, puntosMaximos = 0; 
@@ -21,19 +24,10 @@ void setup() {
   portada = loadImage ("img4.jpg");
   creditos = loadImage ("img5.jpg");
   gameover = loadImage ("img6.jpg");
-}
-void GoodGame(int posX, int posY){
- boolean puntosMaximos = sosBueno(50);
-  
-  textSize(30);
-  fill(0);
-  
-  text("¿sos bueno?: " + puntosMaximos, posX, posY);
+  tono = 1;
+  cuenta = 1;
 }
 
-boolean sosBueno(int cantidadRandom){
-  return (((random(cantidadRandom))%2) == 0);
-}
 void draw() {  
   if (estado == 0) { 
     imageMode(CORNER);
@@ -63,31 +57,30 @@ void draw() {
     image(pajaro, width/2, PosY); 
     text(""+puntos, width/2-15, 100);
   } else { 
-    if (pantalla == 1){ 
-    imageMode(CENTER);
-    image (portada, 300, 350);  
-    fill (0,0,255);
-    ellipse(25, 25, 50, 50);
-    fill (0);
-    text("Oprima el boton azul para iniciar", 20, 670);
-    text("Click izq salto / Click drch salto+", 10, 90);
+    if (pantalla == 1) { 
+      imageMode(CENTER);
+      image (portada, 300, 350);  
+      botonA();
+      fill (0);
+      text("Oprima el boton azul para iniciar", 20, 670);
+      text("Click izq salto / Click drch salto+", 10, 90);
     }
-    if (pantalla == 2){ 
-    image (creditos,300,350);
-    fill(0, 0, 255);
-    ellipse(25, 25, 50, 50);
+    if (pantalla == 2) { 
+      image (creditos, 300, 350);
+      botonA();
+      creditos(width/3, 500);
     }
-    if (pantalla == 3){ 
-    image (gameover,300,350);    
-    fill(0, 0, 255);
-    ellipse(25, 25, 50, 50);
-    fill (232,252,217);
-    text("Máxima puntuación: "+puntosMaximos, 90, width-50);
-    text("Boton rojo para volver al inicio", 55, 90);
-    text("Boton azul para seguir jugando", 55,130);
-    fill(255, 0, 0);
-    ellipse(575, 25, 50, 50);
-     GoodGame(160, 370);
-  }
+
+    if (pantalla == 3) { 
+      image (gameover, 300, 350);    
+      fill(0, 0, 255);
+      ellipse(25, 25, 50, 50);
+      fill (232, 252, 217);
+      text("Máxima puntuación: "+puntosMaximos, 90, width-50);
+      text("Boton rojo para volver al inicio", 25, 90);
+      text("Boton azul para seguir jugando", 25, 130);
+      botonR();
+      frameCount = 0;
+    }
   }
 }
